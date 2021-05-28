@@ -5,6 +5,7 @@ Built out of glue, popsicle sticks and the following:
 ```
 Docker, Traefik, Nginx, Postgres, Django, Bootstrap
 ```
+The original boilerplate was forked from [django-docker-traefik](https://github.com/testdrivenio/django-docker-traefik)
 ## Running from dockerhub
 https://hub.docker.com/r/cultbepis/vermillion
 ```sh
@@ -25,13 +26,3 @@ Test it out:
 
 1. [http://django.localhost:8008/](http://django.localhost:8008/)
 1. [http://django.localhost:8081/](http://django.localhost:8081/)
-
-### Production
-
-Update the domain in *docker-compose.prod.yml*, and add your email to *traefik.prod.toml*.
-
-Build the images and run the containers:
-
-```sh
-docker-compose -f docker-compose.prod.yml up -d --build
-```
