@@ -5,6 +5,7 @@ Built out of glue, popsicle sticks and the following:
 ```
 Docker, Traefik, Nginx, Postgres, Django, Bootstrap
 ```
+The original boilerplate was forked from [django-docker-traefik](https://github.com/testdrivenio/django-docker-traefik)
 ## Running from dockerhub
 https://hub.docker.com/r/cultbepis/vermillion
 ```sh
