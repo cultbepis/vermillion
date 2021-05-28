@@ -1,11 +1,20 @@
 ![vermillion-logo-256px](https://user-images.githubusercontent.com/311132/119929974-b4ebab80-bfbd-11eb-99db-259cec7852b9.jpg)
 
-# VERMILLION
+# VERMILLION - The Homelab Container Stack!
+Built out of glue and popsicle sticks and the following:
 
-## The homelab container stack
+Docker, Traefik, Nginx, Postgres, Django, Bootstrap
 
-docker, django, gunicorn, nginx, postgres, traefik
+## Running from dockerhub
+https://hub.docker.com/r/cultbepis/vermillion
+```
+docker pull cultbepis/vermillion
+```
+```
+$ docker run --name vermillion
+```
 
+## Running with docker-compose
 ### Development
 
 Build the images and spin up the containers:
