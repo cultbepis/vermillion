@@ -30,6 +30,12 @@ services:
       - POSTGRES_DB=django_traefik
   traefik:
     image: traefik:v2.2
+    command:
+      - "--log.level=DEBUG"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
     ports:
       - 8008:80
       - 8081:8080
