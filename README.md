@@ -1,3 +1,5 @@
+![vermillion-logo-256px](https://user-images.githubusercontent.com/311132/119929974-b4ebab80-bfbd-11eb-99db-259cec7852b9.jpg)
+
 # VERMILLION
 
 ## The homelab container stack
