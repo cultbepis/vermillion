@@ -24,5 +24,5 @@ docker-compose up -d --build
 
 Test it out:
 
-1. [http://django.localhost:8008/](http://django.localhost:8008/)
-1. [http://django.localhost:8081/](http://django.localhost:8081/)
+1. [http://vermillion.localhost:8008/](http://vermillion.localhost:8008/)
+1. [http://vermillion.localhost:8081/](http://vermillion.localhost:8081/)
