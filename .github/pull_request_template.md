@@ -1,6 +1,6 @@
 ## Description
 <!--- What changes are proposed in this PR? Put an `x` in all the boxes that apply: -->
-* [ ] What are we changing and why?
+* What are we changing and why?
 * [ ] Is this change linked to an issue?
 
 ## Types of changes
