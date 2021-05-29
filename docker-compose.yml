@@ -7,7 +7,7 @@ services:
     build: ./django
     command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; python manage.py migrate; python manage.py runserver 0.0.0.0:8000'
     volumes:
-      - ./django:/django
+      - ./django/vermillion:/vermillion
     expose:
       - 8000
     environment:
@@ -18,6 +18,8 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.django.rule=Host(`vermillion.localhost`)"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
   db:
     image: postgres:13-alpine
     volumes:

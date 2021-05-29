@@ -4,15 +4,14 @@
 FROM python:3.9.5-slim
 
 # set work directory
-WORKDIR /django
+WORKDIR vermillion
 
 # set env variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-# install dependencies
-COPY /django/requirements.txt .
-RUN pip install -r requirements.txt
-
 # copy project
-COPY /django .
+COPY vermillion .
+
+# install dependencies
+RUN pip install -r requirements.txt

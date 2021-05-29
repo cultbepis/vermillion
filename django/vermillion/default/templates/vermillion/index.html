@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <title>I am a simple test.  Please don't hurt me.</title>
+    </head>
+    <body>
+    {% if container_data %}
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Status</th>
+            </tr>
+        {% for container in container_data %}
+            <tr>
+                <td>{{ container.name }}</td>
+                <td>{{ container.status }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+    {% endif %}
+    </body>
+</html>
