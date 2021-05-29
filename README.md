@@ -28,7 +28,4 @@ Test it out:
 1. [http://vermillion.localhost:8081/](http://vermillion.localhost:8081/)
 
 
-[![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
- [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/) [![Open Source? Yes!](https://badgen.net/badge/Open%20Source%20%3F/Yes%21/blue?icon=github)](https://github.com/Naereen/badges/)
-
-[![GitHub issues](https://img.shields.io/github/issues/Naereen/StrapDown.js.svg)](https://GitHub.com/Naereen/StrapDown.js/issues/) [![GitHub pull-requests](https://img.shields.io/github/issues-pr/Naereen/StrapDown.js.svg)](https://GitHub.com/Naereen/StrapDown.js/pull/)
+[![GitHub license](https://img.shields.io/github/license/cultbepis/vermillion?style=for-the-badge)](https://github.com/cultbepis/vermillion/blob/main/LICENSE) [![GitHub issues](https://img.shields.io/github/issues/cultbepis/vermillion?style=for-the-badge)](https://github.com/cultbepis/vermillion/issues)
