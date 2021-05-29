@@ -1,8 +1,17 @@
 from django.shortcuts import render
-import docker
+from docker import from_env as docker_client
+from docker.errors import DockerException
 
 def index(request):
-    client = docker.from_env()
+    try:
+        client = docker_client()
+    except DockerException as e:
+        context = {
+            'error': str(e)
+        }
+
+        return render(request, 'vermillion/index.html', context, status=500)
+
     container_data = []
     for container in client.containers.list():
         datas = {
