@@ -3,3 +3,6 @@ db.sqlite3
 
 # Ignore Vim swap files
 *.sw*
+
+# Ignore Python caches
+__pycache__
