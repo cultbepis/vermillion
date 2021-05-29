@@ -3,7 +3,9 @@
         <title>I am a simple test.  Please don't hurt me.</title>
     </head>
     <body>
-    {% if container_data %}
+    {% if error %}
+        <p>{{ error }}</p>
+    {% elif container_data %}
         <table>
             <tr>
                 <th>Name</th>
@@ -16,6 +18,8 @@
             </tr>
         {% endfor %}
         </table>
+    {% else %}
+        <p>There are no containers.  There is only Zuul.</p>
     {% endif %}
     </body>
 </html>
