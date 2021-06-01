@@ -10,7 +10,7 @@ The original boilerplate was forked from [django-docker-traefik](https://github.
 https://hub.docker.com/r/cultbepis/vermillion
 ```sh
 docker pull cultbepis/vermillion
-docker run cultbepis/vermillion
+TODO
 ```
 
 ## Running with docker-compose
