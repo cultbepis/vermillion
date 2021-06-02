@@ -5,16 +5,8 @@ Built out of glue, popsicle sticks and the following:
 ```
 Docker, Traefik, Django, Bootstrap
 ```
-The original boilerplate was forked from [django-docker-traefik](https://github.com/testdrivenio/django-docker-traefik)
-## Running from dockerhub
-https://hub.docker.com/r/cultbepis/vermillion
-```sh
-docker pull cultbepis/vermillion
-TODO
-```
 
 ## Running with docker-compose
-### Development
 
 Build the images and spin up the containers:
 
@@ -27,5 +19,11 @@ Test it out:
 1. [http://vermillion.localhost:8008/](http://vermillion.localhost:8008/)
 1. [http://vermillion.localhost:8081/](http://vermillion.localhost:8081/)
 
+## Running from dockerhub
+https://hub.docker.com/r/cultbepis/vermillion
+```sh
+docker pull cultbepis/vermillion
+TODO
+```
 
 [![GitHub license](https://img.shields.io/github/license/cultbepis/vermillion?style=for-the-badge)](https://github.com/cultbepis/vermillion/blob/main/LICENSE) [![GitHub issues](https://img.shields.io/github/issues/cultbepis/vermillion?style=for-the-badge)](https://github.com/cultbepis/vermillion/issues)
