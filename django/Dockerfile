@@ -4,7 +4,7 @@
 FROM python:3.9.5-slim
 
 # set work directory
-WORKDIR vermillion
+WORKDIR /vermillion
 
 # set env variables
 ENV PYTHONDONTWRITEBYTECODE 1
