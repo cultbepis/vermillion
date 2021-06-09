@@ -50,17 +50,24 @@ class PortField(models.CharField):
     def get_prep_value(self, value):
         return '/'.join(value.name, value.protocol.name.lower())
 
-# Models start here
-
+# Models
 class ContainerTemplate(models.Model):
     name = models.CharField(max_length=30, unique=True, blank=False)
-    image_url = models.URLField(blank=False)
-    exposed_port = PortField(blank=False)
+    image_url = models.CharField(max_length=4096, blank=False)
+
+class ExposedPort(models.Model):
+    template = models.ForeignKey('ContainerTemplate', on_delete=models.CASCADE, blank=False, related_name='exposed_ports', related_query_name='exposed_ports')
+    port = PortField(blank=False)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['template', 'port'], name='unique_exposed_port_per_container_template')
+        ]
 
 class VolumeDefinition(models.Model):
     container_dir = models.CharField(max_length=4096, blank=False)
     required = models.BooleanField(default=True, blank=False)
-    template = models.ForeignKey('ContainerTemplate', on_delete=models.CASCADE, blank=False)
+    template = models.ForeignKey('ContainerTemplate', on_delete=models.CASCADE, blank=False, related_name='volume_definitions', related_query_name='volume_definitions')
 
     class Meta:
         constraints = [
@@ -68,9 +75,9 @@ class VolumeDefinition(models.Model):
         ]
 
 class Volume(models.Model):
-    host_dir = models.CharField(max_length=4096, blank=False, unique=True)
-    definition = models.ForeignKey('VolumeDefinition', on_delete=models.PROTECT, blank=False)
-    service = models.ForeignKey('Service', on_delete=models.CASCADE, blank=False)
+    host_dir = models.CharField(max_length=4096, blank=False)
+    definition = models.ForeignKey('VolumeDefinition', on_delete=models.PROTECT, blank=False, related_name='volumes', related_query_name='volumes')
+    service = models.ForeignKey('Service', on_delete=models.CASCADE, blank=False, related_name='volumes', related_query_name='volumes')
 
     class Meta:
         constraints = [
@@ -84,5 +91,26 @@ class ServiceDefinition(models.Model):
     templates = models.ManyToManyField('ContainerTemplate', related_name='service_definitions', related_query_name='service_definitions')
 
 class Service(models.Model):
+    (RUNNING, STOPPED, DECONSTRUCTED) = range(0, 3)
+    STATE_CHOICES = (
+        (RUNNING, 'Running'),
+        (STOPPED, 'Stopped'),
+        (DECONSTRUCTED, 'Deconstructed'),
+    )
+
     name = models.CharField(max_length=30, unique=True, blank=False)
-    definition = models.ForeignKey('ServiceDefinition', on_delete=models.PROTECT, blank=False)
+    definition = models.ForeignKey('ServiceDefinition', on_delete=models.PROTECT, blank=False, related_name='services', related_query_name='services')
+    state = models.PositiveSmallIntegerField(choices=STATE_CHOICES, default=DECONSTRUCTED, blank=False)
+
+    def get_state(self):
+        return STATE_CHOICES[self.state][1]
+
+class ServicePortMapping(models.Model):
+    service = models.ForeignKey('Service', on_delete=models.CASCADE, blank=False, related_name='port_mappings', related_query_name='port_mappings')
+    container_port = models.ForeignKey('ExposedPort', on_delete=models.PROTECT, blank=False, related_name='service_mappings', related_query_name='service_mappings')
+    traefik_port = PortField(blank=False, unique=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['service', 'container_port'], name='unique_container_port_per_service'),
+        ]
