@@ -1,27 +1,26 @@
+from django.contrib import messages
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import render
+from django.views.generic import TemplateView, FormView
+from . import models
+
 from docker import from_env as docker_client
 from docker.errors import DockerException
 
-def index(request):
-    try:
-        client = docker_client()
-    except DockerException as e:
-        context = {
-            'error': str(e)
-        }
+class IndexView(TemplateView):
+    template_name = 'vermillion/index.html'
 
-        return render(request, 'vermillion/index.html', context, status=500)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        services = models.Service.objects.all()
+        paginator = Paginator(services, 5)
+        page = self.request.GET.get("page", 1)
+        try:
+            show_services = paginator.page(page)
+        except PageNotAnInteger:
+            show_services = paginator.page(1)
+        except EmptyPage:
+            show_services = paginator.page(paginator.num_pages)
 
-    container_data = []
-    for container in client.containers.list():
-        datas = {
-            'name': container.name,
-            'status': container.status,
-        }
-        container_data.append(datas)
-
-    context = {
-        'container_data': container_data,
-    }
-
-    return render(request, 'vermillion/index.html', context)
+        context["services"] = show_services
+        return context
