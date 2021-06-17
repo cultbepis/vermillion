@@ -1,25 +1,32 @@
-<html>
-    <head>
-        <title>I am a simple test.  Please don't hurt me.</title>
-    </head>
-    <body>
-    {% if error %}
-        <p>{{ error }}</p>
-    {% elif container_data %}
+{% extends 'vermillion/base.html' %}
+{% load bootstrap4 %}
+{% block subtitle %}Index{% endblock %}
+
+{% block content %}
+    {% if services %}
         <table>
             <tr>
-                <th>Name</th>
+                <th>Service Name</th>
+                <th>Port Mappings</th>
                 <th>Status</th>
             </tr>
-        {% for container in container_data %}
-            <tr>
-                <td>{{ container.name }}</td>
-                <td>{{ container.status }}</td>
-            </tr>
-        {% endfor %}
+            {% for service in services %}
+                <tr>
+                    <td>{{ service.name }}</td>
+                    <td>
+                        {% if service.port_mappings.all %}
+                            {% for port_mapping in service.port_mappings.all %}
+                                <p>{{ port_mapping.container_port }} -> {{ port_mapping.traefik_port }}</p>
+                            {% endfor %}
+                        {% else %}
+                            <p>No port mappings defined</p>
+                        {% endif %}
+                    </td>
+                    <td>{{ service.get_status }}</td>
+                </tr>
+            {% endfor %}
         </table>
     {% else %}
-        <p>There are no containers.  There is only Zuul.</p>
+        <p>No services configured</p>
     {% endif %}
-    </body>
-</html>
+{% endblock %}
