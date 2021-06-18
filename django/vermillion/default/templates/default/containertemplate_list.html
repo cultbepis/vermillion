@@ -1,0 +1,30 @@
+{% extends 'default/listview.html' %}
+{% load bootstrap4 %}
+
+{% block subtitle %}Container Templates{% endblock %}
+
+{% block headers %}
+    <th>Name</th>
+    <th>Image URL</th>
+    <th>Volume Definitions</th>
+{% endblock %}
+
+{% block rows %}
+    {% for template in container_templates %}
+        <tr>
+            <td>{{ template.name }}</td>
+            <td>{{ template.image_url }}</td>
+            <td>
+                {% if template.volume_definitions.count %}
+                    {% for volume_definition in template.volume_definitions.all %}
+                        <p>{{ volume_definition.container_dir }}{% if volume_definition.required %} (Required){% endif %}</p>
+                    {% endfor %}
+                {% else %}
+                    <p>No volume definitions</p>
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}
+
+{% block constraintfail %}No container templates configured{% endblock %}

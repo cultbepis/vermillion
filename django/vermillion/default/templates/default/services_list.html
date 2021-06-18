@@ -1,0 +1,40 @@
+{% extends 'default/listview.html' %}
+{% load bootstrap4 %}
+
+{% block subtitle %}Services{% endblock %}
+
+{% block headers %}
+    <th>Service Name</th>
+    <th>Port Mappings</th>
+    <th>Volumes</th>
+    <th>Status</th>
+{% endblock %}
+
+{% block rows %}
+    {% for service in services %}
+        <tr>
+            <td>{{ service.name }}</td>
+            <td>
+                {% if service.port_mappings.count > 0 %}
+                    {% for port_mapping in service.port_mappings.all %}
+                        <p>{{ port_mapping.container_port }} -> {{ port_mapping.traefik_port }}</p>
+                    {% endfor %}
+                {% else %}
+                    <p>No port mappings defined</p>
+                {% endif %}
+            </td>
+            <td>
+                {% if service.volumes.count %}
+                    {% for volume in service.volumes.all %}
+                        <p>{{ volume.definition.container_dir }} -> {{ volume.host_dir }}</p>
+                    {% endfor %}
+                {% else %}
+                    <p>No volumes</p>
+                {% endif %}
+            </td>
+            <td>{{ service.get_status }}</td>
+        </tr>
+    {% endfor %}
+{% endblock %}
+
+{% block constraintfail %}No services configured{% endblock %}

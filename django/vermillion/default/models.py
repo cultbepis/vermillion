@@ -48,7 +48,7 @@ class PortField(models.CharField):
         return Port(name, protocol)
 
     def get_prep_value(self, value):
-        return '/'.join(value.name, value.protocol.name.lower())
+        return '/'.join([str(value.number), value.protocol.name.lower()])
 
 # Models
 class ContainerTemplate(models.Model):

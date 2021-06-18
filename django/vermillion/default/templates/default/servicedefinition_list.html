@@ -1,0 +1,28 @@
+{% extends 'default/listview.html' %}
+{% load bootstrap4 %}
+
+{% block subtitle %}Service Definitions{% endblock %}
+
+{% block headers %}
+    <th>Name</th>
+    <th>Container Templates</th>
+{% endblock %}
+    
+{% block rows %}
+    {% for service_definition in service_definitions %}
+        <tr>
+            <td>{{ service_definition.name }}</td>
+            <td>
+                {% if service_definition.templates.count %}
+                    {% for template in service_definition.templates.all %}
+                        <p>{{ template.name }}</p>
+                    {% endfor %}
+                {% else %}
+                    <p>No container templates</p>
+                {% endif %}
+            </td>
+        </tr>                
+    {% endfor %}
+{% endblock %}
+
+{% block constraintfail %}No service definitions configured{% endblock %}

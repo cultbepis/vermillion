@@ -1,0 +1,15 @@
+{% extends 'default/base.html' %}
+{% load bootstrap4 %}
+
+{% block content %}
+    {% if has_rows %}
+        <table>
+            <tr>
+                {% block headers %}{% endblock %}
+            </tr>
+            {% block rows %}{% endblock %}
+        </table>
+    {% else %}
+        <p>{% block constraintfail %}{% endblock %}</p>
+    {% endif %}
+{% endblock %}

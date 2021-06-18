@@ -145,7 +145,7 @@ class ServiceForm(forms.ModelForm):
 
     def save():
         # TODO: Actually provision infrastructure here
-        self.instance.state = models.Service.STOPPED
+        self.instance.state = models.Service.DECONSTRUCTED
         super().save()
 
 class ServicePortForm(forms.Form):
